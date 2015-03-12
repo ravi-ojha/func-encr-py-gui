@@ -5,4 +5,4 @@ Python 2.7
 Tkinter  
 ttk  
 
-Once you're done with the pre-requisites, run: python policy_builder.py 
+Once you're done with the pre-requisites, run: ```python create_policy.py``` and follow the wizard instructions.
