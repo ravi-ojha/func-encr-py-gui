@@ -62,6 +62,7 @@ class New_Toplevel_1:
 			self.listOfAttributesFinal.append(tmpAttr)
 
 		self.booleanExpressionFinal = []
+		self.booleanExpressionFinalString = ""
 
 		self.Frame1 = Frame(master)
 		self.Frame1.place(relx=0.05, rely=0.05, relheight=0.55, relwidth=0.89)
@@ -236,6 +237,7 @@ class New_Toplevel_1:
 		# Final is used to print to the file
 		booleanExpression = self.entryBooleanLogic.get()
 		booleanExpressionBetter = []
+		self.booleanExpressionFinal = []
 		for i in booleanExpression:
 			if i >= 'a' and i <= 'z':
 				booleanExpressionBetter.append(self.listOfAttributes[ord(i)-ord('a')])
@@ -251,19 +253,19 @@ class New_Toplevel_1:
 					booleanExpressionBetter.append(i)
 					self.booleanExpressionFinal.append(i)
 
-		booleanExpressionBetter = ''.join(booleanExpressionBetter)
-		self.booleanExpressionFinal = ''.join(self.booleanExpressionFinal)
+		booleanExpressionBetterString = ''.join(booleanExpressionBetter)
+		self.booleanExpressionFinalString = ''.join(self.booleanExpressionFinal)
 
 		self.textBooleanExpressionPreview.configure(state=NORMAL)
 		self.textBooleanExpressionPreview.delete(1.0,END)
-		self.textBooleanExpressionPreview.insert(END,booleanExpressionBetter)
+		self.textBooleanExpressionPreview.insert(END,booleanExpressionBetterString)
 		self.textBooleanExpressionPreview.configure(state=DISABLED)
 
 	def onDoneClick(self, event):
 
 		# write final boolean expression in text file
 		tmp_txt_file = open("policy_file","w")
-		tmp_txt_file.write("%s\n" % self.booleanExpressionFinal)
+		tmp_txt_file.write("%s\n" % self.booleanExpressionFinalString)
 		tmp_txt_file.close()
 		destroy_New_Toplevel_1()
 
