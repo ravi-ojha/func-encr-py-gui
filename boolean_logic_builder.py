@@ -61,7 +61,7 @@ class New_Toplevel_1:
 			tmpAttr = attr.replace(" = ", "__")
 			self.listOfAttributesFinal.append(tmpAttr)
 
-		self.booleanExpressionFinal = ""
+		self.booleanExpressionFinal = []
 
 		self.Frame1 = Frame(master)
 		self.Frame1.place(relx=0.05, rely=0.05, relheight=0.55, relwidth=0.89)
@@ -235,15 +235,24 @@ class New_Toplevel_1:
 		# Better is only for display purpose
 		# Final is used to print to the file
 		booleanExpression = self.entryBooleanLogic.get()
-		booleanExpressionBetter = booleanExpression
-		self.booleanExpressionFinal = booleanExpression
-		for i in xrange(len(self.listOfAttributes)):
-			booleanExpressionBetter = booleanExpressionBetter.replace(chr(i+ord('a')), self.listOfAttributes[i])
-			self.booleanExpressionFinal = self.booleanExpressionFinal.replace(chr(i+ord('a')), self.listOfAttributesFinal[i])
-		booleanExpressionBetter = booleanExpressionBetter.replace("&","AND")
-		self.booleanExpressionFinal = self.booleanExpressionFinal.replace("&","and")
-		booleanExpressionBetter = booleanExpressionBetter.replace("|","OR")
-		self.booleanExpressionFinal = self.booleanExpressionFinal.replace("|","or")
+		booleanExpressionBetter = []
+		for i in booleanExpression:
+			if i >= 'a' and i <= 'z':
+				booleanExpressionBetter.append(self.listOfAttributes[ord(i)-ord('a')])
+				self.booleanExpressionFinal.append(self.listOfAttributesFinal[ord(i)-ord('a')])
+			else:
+				if i == "&":
+					booleanExpressionBetter.append("AND")
+					self.booleanExpressionFinal.append("and")
+				elif i == '|':
+					booleanExpressionBetter.append("OR")
+					self.booleanExpressionFinal.append("or")
+				else:
+					booleanExpressionBetter.append(i)
+					self.booleanExpressionFinal.append(i)
+
+		booleanExpressionBetter = ''.join(booleanExpressionBetter)
+		self.booleanExpressionFinal = ''.join(self.booleanExpressionFinal)
 
 		self.textBooleanExpressionPreview.configure(state=NORMAL)
 		self.textBooleanExpressionPreview.delete(1.0,END)
