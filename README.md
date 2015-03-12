@@ -1,6 +1,8 @@
-# GUI for Policy Builder which is in turn used by CPABE module to encrypt data
+# CPABE Policy Builder GUI
 
-Pre-requisites:  
+**GUI for Policy Builder which is in turn used by CPABE module to encrypt data**
+
+**Pre-requisites:**  
 Python 2.7  
 Tkinter  
 ttk  
