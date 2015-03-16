@@ -40,6 +40,7 @@ def destroy_New_Toplevel_1():
 	w.destroy()
 	w = None
 
+attrTypeMap = {}
 
 class New_Toplevel_1:
 	def __init__(self, master=None):
@@ -50,7 +51,29 @@ class New_Toplevel_1:
 		_ana2color = '#d9d9d9' # X11 color: 'gray85'
 		master.configure(highlightcolor="black")
 
-		self.attrList = ["Name","Designation","Department","Joining Date"]
+		self.attrTypeFile = open("schema","r")
+		# Read and map attributes to a list
+		self.tempFileData = map(str,self.attrTypeFile.read().split("\n"))
+		# Filter empty attributes
+		self.tempFileData = filter(None,self.tempFileData)
+		self.attrTypeFile.close()
+
+		sCount, mCount, dCount = map(int,self.tempFileData[0].split())
+		tmpIdx = 1
+		for i in xrange(sCount):
+			attrTypeMap[self.tempFileData[tmpIdx]] = "String"
+			tmpIdx += 1
+		for i in xrange(mCount):
+			attrTypeMap[self.tempFileData[tmpIdx]] = "Math"
+			tmpIdx += 1
+		for i in xrange(dCount):
+			attrTypeMap[self.tempFileData[tmpIdx]] = "Date"
+			tmpIdx += 1
+
+		self.attrList = self.tempFileData[1:]
+		print attrTypeMap
+		print self.attrList
+		# Read attributes from file and populate attrList and attrTypeMap
 
 		self.dataSelectionFrame = Frame(master)
 		self.dataSelectionFrame.place(relx=0.05, rely=0.05, relheight=0.49, relwidth=0.89)
@@ -72,6 +95,7 @@ class New_Toplevel_1:
 
 		self.attrDict = {}
 		for attr in self.attrList:
+			# [0] for attr value and [1] for equality sign
 			self.attrDict[attr] = ["",""]
 
 		self.lbAttributes.select_set(0) #This only sets focus on the first item.

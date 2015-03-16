@@ -7,6 +7,7 @@ import os
 import sys
 import ttk
 
+import policy_builder
 import boolean_logic_builder_support
 
 def vp_start_gui():
@@ -58,8 +59,17 @@ class New_Toplevel_1:
 
 		self.listOfAttributesFinal = []
 		for attr in self.listOfAttributes:
-			tmpAttr = attr.replace(" = ", "__")
-			self.listOfAttributesFinal.append(tmpAttr)
+			curr_key = map(str,attr.split())
+			curr_key = curr_key[0].replace("_"," ")
+			if policy_builder.attrTypeMap[curr_key] == "String":
+				tmpAttr = attr.replace(" = ", "__")
+				self.listOfAttributesFinal.append(tmpAttr)
+			elif policy_builder.attrTypeMap[curr_key] == "Date":
+				tmpAttr = attr.replace("/", "")
+				self.listOfAttributesFinal.append(tmpAttr)
+			else:
+				self.listOfAttributesFinal.append(attr)
+
 
 		self.booleanExpressionFinal = []
 		self.booleanExpressionFinalString = ""
